@@ -5,6 +5,9 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
+import Login from "./components/Login";
+import SignUp from "./components/Signup";
+import { Router } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
   return (
