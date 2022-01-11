@@ -4,8 +4,14 @@ function Contact() {
   return (
     <div>
       <div
-        className="container"
-        style={{ scrollBehavior: "smooth", paddingTop: "20px" }}
+        className="container card"
+        style={{
+          scrollBehavior: "smooth",
+          paddingTop: "20px",
+          width: "70rem",
+          borderLeftWidth: "0px",
+          borderRightWidth: "0px",
+        }}
         id="contact">
         <h3 style={{ fontFamily: "roboto" }}>Contact</h3>
         <div className="row">
@@ -62,6 +68,8 @@ function Contact() {
         <div
           className="card container bg-light"
           style={{
+            fontFamily: "-moz-initial",
+            fontSize: "20px",
             width: "relative",
             marginTop: "30px",
             maxWidth: "800px",
