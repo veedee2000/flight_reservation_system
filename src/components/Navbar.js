@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Navbar(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(0);
+
   return (
     <div>
       <nav
@@ -11,7 +13,7 @@ export default function Navbar(props) {
         <div className="container-fluid">
           <div className="navbar-header pt-2">
             <Link
-              to="/home"
+              to="/"
               className="navbar-brand px-2"
               style={{
                 fontFamily: "cursive",
@@ -24,12 +26,12 @@ export default function Navbar(props) {
           </div>
           <ul className="navbar-nav row" style={{ fontFamily: "optima" }}>
             <li className="nav-item col pt-2">
-              <a className="navbar-brand text-dark" href="/home/#about">
+              <a className="navbar-brand text-dark" href="/#about">
                 About Us
               </a>
             </li>
             <li className="nav-item col pt-2">
-              <a className="navbar-brand text-dark" href="/home/#contact">
+              <a className="navbar-brand text-dark" href="/#contact">
                 Contact
               </a>
             </li>
@@ -50,15 +52,27 @@ export default function Navbar(props) {
                 <ul
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton">
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/profile#account">
                     Account
-                  </a>
-                  <a className="dropdown-item" href="#">
+                  </Link>
+                  <Link className="dropdown-item" to="/profile#history">
                     History
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Logout
-                  </a>
+                  </Link>
+                  {isLoggedIn ? (
+                    <Link
+                      className="dropdown-item"
+                      to="/"
+                      onClick={() => setIsLoggedIn(0)}>
+                      Logout
+                    </Link>
+                  ) : (
+                    <Link
+                      className="dropdown-item"
+                      to="/signup"
+                      onClick={() => setIsLoggedIn(1)}>
+                      Signup
+                    </Link>
+                  )}
                 </ul>
               </div>
             </li>

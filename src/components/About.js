@@ -2,7 +2,16 @@ import React from "react";
 
 function About() {
   return (
-    <div style={{ scrollBehavior: "smooth", paddingTop: "20px" }} id="about">
+    <div
+      className="container card"
+      style={{
+        scrollBehavior: "smooth",
+        paddingTop: "20px",
+        width: "70rem",
+        borderLeftWidth: "0px",
+        borderRightWidth: "0px",
+      }}
+      id="about">
       <h3 style={{ fontFamily: "roboto" }}>About Us</h3>
       <p style={{ padding: "20px 20px 40px 20px" }}>
         We at{" "}
