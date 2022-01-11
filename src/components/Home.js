@@ -8,6 +8,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function Home(props) {
   const [startDate, setStartDate] = useState(new Date());
+
+  const [displayTable, setDisplayTable] = useState(0);
+
   return (
     <div>
       <div className="jumbotron">
@@ -100,13 +103,15 @@ export default function Home(props) {
           <button
             type="button"
             className="btn btn-primary"
+            onClick={() => setDisplayTable(1)}
             style={{ fontFamily: "inherit", borderRadius: "8px" }}>
             SEARCH
           </button>
-          <TableComponent></TableComponent>
+          {/* <TableComponent></TableComponent> */}
+          {displayTable ? <TableComponent></TableComponent> : <p></p>}
         </div>
       </div>
-      <div style={{ paddingTop: "200px" }}>
+      <div style={{ paddingTop: "20px" }}>
         <About></About>
         <Contact></Contact>
       </div>

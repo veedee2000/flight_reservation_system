@@ -35,46 +35,27 @@ export default function Navbar(props) {
                 Contact
               </a>
             </li>
-            <li className="nav-item col dropdown">
-              <div className="dropdown">
-                <button
-                  className="btn btn-light dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style={{ fontSize: "20px" }}>
-                  <Link className="navbar-brand text-dark" to="/profile">
-                    Profile
-                  </Link>
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton">
-                  <Link className="dropdown-item" to="/profile#account">
-                    Account
-                  </Link>
-                  <Link className="dropdown-item" to="/profile#history">
-                    History
-                  </Link>
-                  {isLoggedIn ? (
-                    <Link
-                      className="dropdown-item"
-                      to="/"
-                      onClick={() => setIsLoggedIn(0)}>
-                      Logout
-                    </Link>
-                  ) : (
-                    <Link
-                      className="dropdown-item"
-                      to="/signup"
-                      onClick={() => setIsLoggedIn(1)}>
-                      Signup
-                    </Link>
-                  )}
-                </ul>
-              </div>
+            <li className="nav-item col pt-2">
+              <Link className="navbar-brand text-dark" to="/profile">
+                Profile
+              </Link>
+            </li>
+            <li className="nav-item col pt-2">
+              {isLoggedIn ? (
+                <Link
+                  className="navbar-brand text-dark"
+                  to="/"
+                  onClick={() => setIsLoggedIn(0)}>
+                  Logout
+                </Link>
+              ) : (
+                <Link
+                  className="navbar-brand text-dark"
+                  to="/signup"
+                  onClick={() => setIsLoggedIn(1)}>
+                  Sign Up
+                </Link>
+              )}
             </li>
           </ul>
         </div>
