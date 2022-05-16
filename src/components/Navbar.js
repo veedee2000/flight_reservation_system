@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Link } from "react-router-dom";
+import { logout, useAuth } from "../firebase/Firebase";
 
 export default function Navbar(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(0);
+  const currentUser = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div>
       <nav
         className="navbar navbar-expand-lg"
-        style={{ backgroundColor: "##FF7F7F" }}>
+        style={{ backgroundColor: "##FF7F7F" }}
+      >
         <div className="container-fluid">
           <div className="navbar-header pt-2">
             <Link
@@ -20,7 +30,8 @@ export default function Navbar(props) {
                 color: "white",
                 borderRadius: "10px",
                 backgroundColor: "#eb6e00",
-              }}>
+              }}
+            >
               Kurama Airlines
             </Link>
           </div>
@@ -35,24 +46,24 @@ export default function Navbar(props) {
                 Contact
               </a>
             </li>
+            {currentUser && (
+              <li className="nav-item col pt-2">
+                <Link className="navbar-brand text-dark" to="/profile">
+                  Profile
+                </Link>
+              </li>
+            )}
             <li className="nav-item col pt-2">
-              <Link className="navbar-brand text-dark" to="/profile">
-                Profile
-              </Link>
-            </li>
-            <li className="nav-item col pt-2">
-              {isLoggedIn ? (
+              {currentUser ? (
                 <Link
+                  onClick={handleLogout}
                   className="navbar-brand text-dark"
                   to="/"
-                  onClick={() => setIsLoggedIn(0)}>
+                >
                   Logout
                 </Link>
               ) : (
-                <Link
-                  className="navbar-brand text-dark"
-                  to="/signup"
-                  onClick={() => setIsLoggedIn(1)}>
+                <Link className="navbar-brand text-dark" to="/signup">
                   Sign Up
                 </Link>
               )}

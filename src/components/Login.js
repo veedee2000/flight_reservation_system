@@ -1,58 +1,63 @@
-import React, { Component } from "react";
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
+import { login } from "../firebase/Firebase";
 
-export default class Login extends Component {
-  render() {
-    return (
-      <div
-        className="container card"
-        style={{
-          padding: "15px 15px 15px 15px",
-          borderRadius: "15px",
-          width: "25rem",
-          backgroundColor: "lightgray",
-        }}>
-        <form>
-          <h3>Sign In</h3>
+function Login() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-          <div className="form-group pt-2">
-            <label>Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter email"
-            />
-          </div>
+  const handleLogin = async () => {
+    try {
+      await login(emailRef.current.value, passwordRef.current.value);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
-          <div className="form-group pt-2">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-            />
-          </div>
+  return (
+    <div
+      className="container card"
+      style={{
+        padding: "15px 15px 15px 15px",
+        borderRadius: "15px",
+        width: "25rem",
+        backgroundColor: "lightgray",
+      }}
+    >
+      <form>
+        <h3>Sign In</h3>
 
-          <div className="form-group pt-2">
-            <div className="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                className="custom-control-input"
-                id="customCheck1"
-              />
-              <label className="custom-control-label" htmlFor="customCheck1">
-                Remember me
-              </label>
-            </div>
-          </div>
+        <div className="form-group pt-2">
+          <label>Email address</label>
+          <input
+            ref={emailRef}
+            type="email"
+            className="form-control"
+            placeholder="Enter email"
+          />
+        </div>
 
-          <button type="submit" className="btn btn-primary btn-block mt-2">
-            Submit
-          </button>
-          {/* <p className="forgot-password text-right">
-            Forgot <a href="#">password?</a>
-          </p> */}
-        </form>
-      </div>
-    );
-  }
+        <div className="form-group pt-2">
+          <label>Password</label>
+          <input
+            ref={passwordRef}
+            type="password"
+            className="form-control"
+            placeholder="Enter password"
+          />
+        </div>
+
+        <Link
+          onClick={handleLogin}
+          type="submit"
+          className="btn btn-primary btn-block mt-2"
+          to="/"
+        >
+          Submit
+        </Link>
+      </form>
+    </div>
+  );
 }
+
+export default Login;
