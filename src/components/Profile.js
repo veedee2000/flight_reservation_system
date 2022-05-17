@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import { useAuth, upload } from "../firebase/Firebase";
+import {
+  useAuth,
+  upload,
+  setProfileValue,
+  getProfileValue,
+} from "../firebase/Firebase";
 import DefaultUserPic from "../images/team-male.jpg";
 
 function Profile() {
@@ -8,7 +13,24 @@ function Profile() {
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
   const [photoURL, setPhotoURL] = useState(DefaultUserPic);
-  console.log(currentUser);
+
+  const [nameDefault, setNameDefault] = useState("");
+  const [emailDefault, setEmailDefault] = useState("");
+  const [phoneDefault, setPhoneDefault] = useState("");
+  const [ageDefault, setAgeDefault] = useState("");
+  const [sexDefault, setSexDefault] = useState("");
+  const [addressDefault, setAddressDefault] = useState("");
+  const [stateDefault, setStateDefault] = useState("");
+  const [countryDefault, setCountryDefault] = useState("");
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
+  const ageRef = useRef();
+  const sexRef = useRef();
+  const addressRef = useRef();
+  const stateRef = useRef();
+  const countryRef = useRef();
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -23,10 +45,43 @@ function Profile() {
     if (currentUser?.photoURL) {
       setPhotoURL(currentUser.photoURL);
     }
+    if (currentUser) {
+      const defaultValue = getProfileValue(currentUser);
+      setNameDefault(defaultValue.name);
+      setEmailDefault(defaultValue.email);
+      setPhoneDefault(defaultValue.phone);
+      setAgeDefault(defaultValue.age);
+      setSexDefault(defaultValue.sex);
+      setAddressDefault(defaultValue.address);
+      setStateDefault(defaultValue.state);
+      setCountryDefault(defaultValue.country);
+    }
   }, [currentUser]);
 
+  const handleSave = async () => {
+    try {
+      await setProfileValue(
+        currentUser,
+        nameRef.current.value,
+        emailRef.current.value,
+        phoneRef.current.value,
+        ageRef.current.value,
+        sexRef.current.value,
+        addressRef.current.value,
+        stateRef.current.value,
+        countryRef.current.value
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const loader = () => {
+    console.log(nameDefault);
+  };
+
   return (
-    <div>
+    <div onLoad={loader}>
       <div id="account">
         <Container>
           <Row>
@@ -36,11 +91,15 @@ function Profile() {
                 alt={DefaultUserPic}
                 style={{
                   borderRadius: "50%",
-                  width: "300px",
-                  height: "300px",
-                  marginTop: "50px",
+                  width: "400px",
+                  height: "400px",
+                  marginTop: "100px",
                 }}
               />
+              <input type="file" alt="Profile Pic" onChange={handleChange} />
+              <button disabled={loading || !photo} onClick={handleClick}>
+                Upload
+              </button>
             </Col>
             <Col
               className="container card"
@@ -56,8 +115,12 @@ function Profile() {
                   controlId="formCategory1"
                   className="my-2 container"
                 >
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control disabled type="text" defaultValue="John Doe" />
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={nameRef}
+                    defaultValue={nameDefault}
+                  />
                 </Form.Group>
                 <Form.Group
                   controlId="formCategory2"
@@ -65,9 +128,60 @@ function Profile() {
                 >
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    disabled
-                    type="email"
-                    defaultValue="doejohn@gmail.com"
+                    type="text"
+                    ref={emailRef}
+                    defaultValue={emailDefault}
+                  />
+                </Form.Group>
+                <Form.Group
+                  controlId="formCategory2"
+                  className="my-2 pt-2 container"
+                >
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    ref={phoneRef}
+                    defaultValue={phoneDefault}
+                  />
+                </Form.Group>
+                <Row>
+                  <Col>
+                    <Form.Group
+                      controlId="formCategory3"
+                      className="my-2 pt-2 container"
+                    >
+                      <Form.Label>State</Form.Label>
+                      <Form.Control
+                        type="text"
+                        ref={stateRef}
+                        defaultValue={stateDefault}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group
+                      controlId="formCategory4"
+                      className="my-2 pt-2 container"
+                      style={{ textAlign: "center" }}
+                    >
+                      <Form.Label>Country</Form.Label>
+                      <Form.Control
+                        type="text"
+                        ref={countryRef}
+                        defaultValue={countryDefault}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Form.Group
+                  controlId="formCategory2"
+                  className="my-2 pt-2 container"
+                >
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={addressRef}
+                    defaultValue={addressDefault}
                   />
                 </Form.Group>
                 <Row>
@@ -77,7 +191,11 @@ function Profile() {
                       className="my-2 pt-2 container"
                     >
                       <Form.Label>Age</Form.Label>
-                      <Form.Control disabled type="number" defaultValue="21" />
+                      <Form.Control
+                        type="text"
+                        ref={ageRef}
+                        defaultValue={ageDefault}
+                      />
                     </Form.Group>
                   </Col>
                   <Col>
@@ -87,23 +205,28 @@ function Profile() {
                       style={{ textAlign: "center" }}
                     >
                       <Form.Label>Sex</Form.Label>
-                      <Form.Control disabled type="text" defaultValue="Male" />
+                      <Form.Control
+                        type="text"
+                        ref={sexRef}
+                        defaultValue={sexDefault}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
                 <Col>
-                  <button
+                  <div
+                    onClick={handleSave}
                     type="button"
                     className="btn btn-primary mt-4"
                     style={{ fontFamily: "inherit", borderRadius: "8px" }}
                   >
-                    Make Changes
-                  </button>
+                    Save Changes!
+                  </div>
                 </Col>
               </Form>
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col>
               <input type="file" alt="Profile Pic" onChange={handleChange} />
               <button disabled={loading || !photo} onClick={handleClick}>
@@ -111,7 +234,7 @@ function Profile() {
               </button>
             </Col>
             <Col></Col>
-          </Row>
+          </Row> */}
         </Container>
       </div>
       <div
