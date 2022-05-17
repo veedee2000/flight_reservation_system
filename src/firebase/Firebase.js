@@ -9,13 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  onSnapshot,
-  getDoc,
-} from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 // Your web app's Firebase configuration
@@ -65,7 +59,7 @@ export const upload = async (file, currentUser, setLoading) => {
   const fileRef = ref(storage, currentUser.uid + ".png");
   setLoading(true);
 
-  const snapshot = await uploadBytes(fileRef, file);
+  await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
 
   updateProfile(currentUser, { photoURL });

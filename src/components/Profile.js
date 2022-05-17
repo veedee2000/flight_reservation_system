@@ -7,6 +7,7 @@ import {
   getProfileValue,
 } from "../firebase/Firebase";
 import DefaultUserPic from "../images/team-male.jpg";
+import PdfWithQRGenerator from "../pdf/PdfWithQRGenerator";
 
 function Profile() {
   const currentUser = useAuth();
@@ -77,7 +78,7 @@ function Profile() {
   };
 
   const loader = () => {
-    console.log(nameDefault);
+    console.log(currentUser);
   };
 
   return (
@@ -226,15 +227,6 @@ function Profile() {
               </Form>
             </Col>
           </Row>
-          {/* <Row>
-            <Col>
-              <input type="file" alt="Profile Pic" onChange={handleChange} />
-              <button disabled={loading || !photo} onClick={handleClick}>
-                Upload
-              </button>
-            </Col>
-            <Col></Col>
-          </Row> */}
         </Container>
       </div>
       <div
@@ -247,96 +239,130 @@ function Profile() {
       >
         <h4 style={{ fontFamily: "monospace" }}>Travel History</h4>
         <table className="container mt-4">
-          <tr>
-            <th>Departure Date</th>
-            <th>Departure Time</th>
-            <th>Departure Location</th>
-            <th>Arrival Date</th>
-            <th>Arrival Time</th>
-            <th>Arrival Location</th>
-            <th>Airline Company</th>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
-          <tr>
-            <td>01/01/2022</td>
-            <td>7:15 A.M.</td>
-            <td>Kolkata (CCU)</td>
-            <td>02/01/2022</td>
-            <td>03:35 P.M.</td>
-            <td>Zurich (ZRH)</td>
-            <td>Lufthansa</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Departure Date</th>
+              <th>Departure Time</th>
+              <th>Departure Location</th>
+              <th>Arrival Date</th>
+              <th>Arrival Time</th>
+              <th>Arrival Location</th>
+              <th>Airline Company</th>
+              <th>Ticket</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+            <tr>
+              <td>01/01/2022</td>
+              <td>7:15 A.M.</td>
+              <td>Kolkata (CCU)</td>
+              <td>02/01/2022</td>
+              <td>03:35 P.M.</td>
+              <td>Zurich (ZRH)</td>
+              <td>Lufthansa</td>
+              <td>{PdfWithQRGenerator()}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
