@@ -32,7 +32,7 @@ function Payment() {
           transactionInfo: {
             totalPriceStatus: "FINAL",
             totalPriceLabel: "Total",
-            totalPrice: "10000",
+            totalPrice: "5435",
             currencyCode: "INR",
             countryCode: "US",
           },
@@ -43,7 +43,7 @@ function Payment() {
           console.log("load payment data", paymentRequest);
         }}
         onPaymentAuthorized={(paymentData) => {
-          console.log("Payment Authorised Success", paymentData);
+          console.log("Payment Data Successful", paymentData);
           return { transactionState: "SUCCESS" };
         }}
         existingPaymentMethodRequired="false"

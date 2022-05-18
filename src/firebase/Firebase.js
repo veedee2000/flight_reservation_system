@@ -9,7 +9,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 // Your web app's Firebase configuration
@@ -109,4 +116,14 @@ export const getProfileValue = async (currentUser) => {
       state: "",
       country: "",
     };
+};
+
+export const getFlights = async (from, to) => {
+  const documentId = from.toLowerCase() + "-" + to.toLowerCase();
+  const querySnapshot = await getDocs(collection(db, documentId));
+  const data = [];
+  querySnapshot.forEach((doc) => {
+    data.push(doc.data());
+  });
+  return data;
 };
