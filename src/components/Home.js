@@ -139,8 +139,9 @@ export default function Home() {
           >
             SEARCH
           </div>
-          {displayTable && (
+          {displayTable ? (
             <TableComponent></TableComponent>
+          ) : (
             // <div>
             //   <table className="container mt-5">
             //     <thead>
@@ -157,6 +158,7 @@ export default function Home() {
             //     <tbody>{rows}</tbody>
             //   </table>
             // </div>
+            <p></p>
           )}
         </div>
       </div>

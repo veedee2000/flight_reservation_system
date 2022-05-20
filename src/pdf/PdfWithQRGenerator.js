@@ -61,7 +61,9 @@ const PdfWithQRGenerator = () => {
 
   return (
     <div>
-      <QRcode value="Sample QR code" id="qrcode" />
+      <center>
+        <QRcode value="VD-21052022-FL12305" id="qrcode" />
+      </center>
       <button
         type="button"
         className="btn btn-primary container"

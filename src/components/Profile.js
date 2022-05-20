@@ -33,6 +33,8 @@ function Profile() {
   const stateRef = useRef();
   const countryRef = useRef();
 
+  const [displayTable, setDisplayTable] = useState(0);
+
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setPhoto(e.target.files[0]);
@@ -120,7 +122,7 @@ function Profile() {
                   <Form.Control
                     type="text"
                     ref={nameRef}
-                    defaultValue={nameDefault}
+                    defaultValue="Varun Das"
                   />
                 </Form.Group>
                 <Form.Group
@@ -131,7 +133,7 @@ function Profile() {
                   <Form.Control
                     type="text"
                     ref={emailRef}
-                    defaultValue={emailDefault}
+                    defaultValue="veedee6789@gmail.com"
                   />
                 </Form.Group>
                 <Form.Group
@@ -142,7 +144,7 @@ function Profile() {
                   <Form.Control
                     type="tel"
                     ref={phoneRef}
-                    defaultValue={phoneDefault}
+                    defaultValue="8583052213"
                   />
                 </Form.Group>
                 <Row>
@@ -155,7 +157,7 @@ function Profile() {
                       <Form.Control
                         type="text"
                         ref={stateRef}
-                        defaultValue={stateDefault}
+                        defaultValue="West Bengal"
                       />
                     </Form.Group>
                   </Col>
@@ -169,7 +171,7 @@ function Profile() {
                       <Form.Control
                         type="text"
                         ref={countryRef}
-                        defaultValue={countryDefault}
+                        defaultValue="India"
                       />
                     </Form.Group>
                   </Col>
@@ -182,7 +184,7 @@ function Profile() {
                   <Form.Control
                     type="text"
                     ref={addressRef}
-                    defaultValue={addressDefault}
+                    defaultValue="Flat 26-04, Block 5, Elita Garden Vista, Newtown, Kol-156"
                   />
                 </Form.Group>
                 <Row>
@@ -195,7 +197,7 @@ function Profile() {
                       <Form.Control
                         type="text"
                         ref={ageRef}
-                        defaultValue={ageDefault}
+                        defaultValue="21"
                       />
                     </Form.Group>
                   </Col>
@@ -206,11 +208,7 @@ function Profile() {
                       style={{ textAlign: "center" }}
                     >
                       <Form.Label>Sex</Form.Label>
-                      <Form.Control
-                        type="text"
-                        ref={sexRef}
-                        defaultValue={sexDefault}
-                      />
+                      <Form.Control type="text" ref={sexRef} defaultValue="M" />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -237,33 +235,42 @@ function Profile() {
           paddingBottom: "20px",
         }}
       >
-        <h4 style={{ fontFamily: "monospace" }}>Travel History</h4>
-        <table className="container mt-4">
-          <thead>
-            <tr>
-              <th>Departure Date</th>
-              <th>Departure Time</th>
-              <th>Departure Location</th>
-              <th>Arrival Date</th>
-              <th>Arrival Time</th>
-              <th>Arrival Location</th>
-              <th>Airline Company</th>
-              <th>Ticket</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>21/05/2022</td>
-              <td>7:15 A.M.</td>
-              <td>Kolkata (CCU)</td>
-              <td>21/05/2022</td>
-              <td>03:35 P.M.</td>
-              <td>Mumbai (MUM)</td>
-              <td>Air India</td>
-              <td>{PdfWithQRGenerator()}</td>
-            </tr>
-          </tbody>
-        </table>
+        <h4
+          onClick={() => setDisplayTable(1)}
+          style={{ fontFamily: "monospace" }}
+        >
+          Travel History
+        </h4>
+        {displayTable ? (
+          <table className="container mt-4">
+            <thead>
+              <tr>
+                <th>Departure Date</th>
+                <th>Departure Time</th>
+                <th>Departure Location</th>
+                <th>Arrival Date</th>
+                <th>Arrival Time</th>
+                <th>Arrival Location</th>
+                <th>Airline Company</th>
+                <th>Ticket</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>21/05/2022</td>
+                <td>7:15 A.M.</td>
+                <td>Kolkata (CCU)</td>
+                <td>21/05/2022</td>
+                <td>03:35 P.M.</td>
+                <td>Mumbai (MUM)</td>
+                <td>Air India</td>
+                <td>{PdfWithQRGenerator()}</td>
+              </tr>
+            </tbody>
+          </table>
+        ) : (
+          <p hidden="true">{PdfWithQRGenerator()}</p>
+        )}
       </div>
     </div>
   );
